@@ -5,58 +5,109 @@
     <title>Cointrade</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <body>
     <div class="container">
         <nav>
-            <a href="./index.html"><img src="/Users/ashyboi/Desktop/Images/logo.jpg" class="logo"></a>
         <ul>
-            <li><a href="./swap.html">Swap</a></li>
+            <li><a href="index.html" class="logo">Cointrade</a></li>
+            <li><a href="swap.html">Swap</a></li>
+            <li><a href="tokens.html">Tokens</a></li>
+
+            <input type="text" placeholder="Search tokens and NFT collections" size = '55px'>
         </ul>
         </nav>
         <div class="converter">
-            <header>Crptocurrency Converter</header>
-            <form action="#">
-                <div class="amount">
-                    <p>Swap</p>
-                    <input type="text" value="1">
-                </div>
-                <div class="drop-list">
-                    <div class="from">
-                        <p>From</p>
-                        <div class="select-box">
-                          <img src="/Users/ashyboi/Desktop/Images/Logos/Agoric.svg" alt="logo">
-                          <select>
-                            <option value="Agoric">Agoric</option>
-                            <option value="Arbitrum">Arbitrum</option>
-                            <option value="Axelar">Axelar</option>
-                            <option value="Bitcoin">Bitcoin</option>
-                            <option value="Canto ">Canto</option>
-                          </select>
-                        </div>
-                      </div>
-          
-                      <div class="to">
-                        <p>To</p>
-                        <div class="select-box">
-                          <img src="/Users/ashyboi/Desktop/Images/Logos/Ethereum.svg" alt="logo">
-                          <select>
-                            <option value="Agoric">Agoric</option>
-                            <option value="Arbitrum">Arbitrum</option>
-                            <option value="Axelar">Axelar</option>
-                            <option value="Bitcoin">Bitcoin</option>
-                            <option value="Canto ">Canto</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="exchange-rate">Generating exchange rate...</div>
-                    <button>Exchange</button>
-                  </form>
-                </div>
-          
-                
-    
-</body>
+            <header>Cryptocurrency Converter</header>
+            <form action="">
+              <input type="text" name="amount" id="amount" placeholder="Enter Amount" required>
+              <label id="fromCurrencyName"></label>
+              <div id="select-field">
+                  <select name="fromCurrency" id="fromCurrency" onchange="showFromCurrencyName()">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="USDT">Tether (USDT)</option>
+                        <option value="BNB">Binance Coin (BNB)</option>
+                        <option value="USDC">USD Coin (USDC)</option>
+                        <option value="XRP">XRP (XRP)</option>
+                        <option value="BUSD">Binance USD (BUSD)</option>
+                        <option value="ADA">cardano (ADA)</option>
+                        <option value="DOGE">Dogecoin (DOGE)</option>
+                        <option value="MATIC">Polygon (MATIC)</option>
+                        <option value="SOL">Solana (SOL)</option>
+                        <option value="DOT">Polkadot (DOT)</option>
+                        <option value="SHIB">Shiba Inu (SHIB)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                        <option value="TRX">Tron (TRX)</option>
+                        <option value="AVAX">Avalanche (AVAX)</option>
+                      </select>
+                      <span>to</span>
+                      <select name="toCurrency" id="toCurrency" onchange="showCurrencyName()">
+                        <option value="BTC">Bitcoin (BTC)</option>
+                        <option value="ETH">Ethereum (ETH)</option>
+                        <option value="USDT">Tether (USDT)</option>
+                        <option value="BNB">Binance Coin (BNB)</option>
+                        <option value="USDC">USD Coin (USDC)</option>
+                        <option value="XRP">XRP (XRP)</option>
+                        <option value="BUSD">Binance USD (BUSD)</option>
+                        <option value="ADA">cardano (ADA)</option>
+                        <option value="DOGE">Dogecoin (DOGE)</option>
+                        <option value="MATIC">Polygon (MATIC)</option>
+                        <option value="SOL">Solana (SOL)</option>
+                        <option value="DOT">Polkadot (DOT)</option>
+                        <option value="SHIB">Shiba Inu (SHIB)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                        <option value="TRX">Tron (TRX)</option>
+                        <option value="AVAX">Avalanche (AVAX)</option>
+                      </select>
+                  </div>
 
-</html>
+                  <br>
+      
+                  <button type="button" id="convert" class="primary-btn">Convert</button>
+              </form>
+              <p id="result"></p>
+
+          </div>
+          <script>
+            function showCurrencyName() {
+              var selectCurrency = document.getElementById("toCurrency");
+              var currencyName = selectCurrency.options[selectCurrency.selectedIndex].text;
+              document.getElementById("currencyName").innerHTML = currencyName;
+            }
+      
+            function showFromCurrencyName() {
+              var selectFromCurrency = document.getElementById("fromCurrency");
+              var fromCurrencyName = selectFromCurrency.options[selectFromCurrency.selectedIndex].text;
+              document.getElementById("fromCurrencyName").innerHTML = fromCurrencyName;
+            }
+    
+                const amountInput = document.querySelector('#amount');
+                const fromCurrencySelect = document.querySelector('#fromCurrency');
+                const toCurrencySelect = document.querySelector('#toCurrency');
+                const convertButton = document.querySelector('#convert');
+                const resultParagraph = document.querySelector('#result');
+                
+                convertButton.addEventListener('click', () => {
+                const amount = amountInput.value;
+                const fromCurrency = fromCurrencySelect.value;
+                const toCurrency = toCurrencySelect.value;
+                const apiKey = "1499739c40d47f955e55b6b6c86fca0ad67f9455fecb080301400f0274ef8f3b";
+                const apiUrl = `https://min-api.cryptocompare.com/data/price?fsym=${toCurrency}&tsyms=${fromCurrency}&api_key=${apiKey}`;
+              
+                fetch(apiUrl)
+                  .then(response => response.json())
+                  .then(data => {
+                    const rate = data[fromCurrency];
+                    const result = amount / rate;
+              
+                    resultParagraph.innerHTML = `${amount} ${fromCurrency} is equal to ${result.toFixed(4)} ${toCurrency}`;
+                  })
+                  .catch(error => {
+                    resultParagraph.innerHTML = "Error: Unable to fetch exchange rate.";
+                    console.error(error);
+                  });
+              });
+        </script>
+    </body>
+    </html>
